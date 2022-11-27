@@ -49,11 +49,9 @@ When comparation sign '===' is used, and both sides are type of ObjectId, or can
 ObjectId, warning will be shown.
 
 Example 1:
-<img src="./assets-docu/example1.gif" />
+![example-1](https://github.com/almedinhodzic/objectid-compare/blob/main/assets-docu/example1.gif)
 Example 2:
-<br />
-<img src="./assets-docu/example2.png" />
-
+![example-2](https://github.com/almedinhodzic/objectid-compare/blob/main/assets-docu/example2.png)
 
 
 ---
