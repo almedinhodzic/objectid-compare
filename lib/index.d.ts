@@ -4,7 +4,7 @@
  */
 declare const _default: {
     rules: {
-        "objectid-compare": import("@typescript-eslint/utils/dist/ts-eslint/Rule").RuleModule<"compareObjId", never[], {
+        "objectid-compare": import("@typescript-eslint/utils/dist/ts-eslint/Rule").RuleModule<"compareObjIdMsg", never[], {
             BinaryExpression(node: import("@typescript-eslint/types/dist/generated/ast-spec").BinaryExpression): void;
         }>;
     };

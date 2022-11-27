@@ -1,0 +1,8 @@
+/node_modules
+/**/*.ts
+/**/*.map
+*.ts
+*.json
+/tests
+.eslintrc.js
+/assets-docu
