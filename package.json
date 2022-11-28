@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-objectid-compare",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Comparing ObjectId from mongodb module",
   "keywords": [
     "eslint",
@@ -12,6 +12,11 @@
   "author": "Almedin Hodzic",
   "main": "./lib/index.js",
   "exports": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/almedinhodzic/objectid-compare"
+  },
+  "homepage": "https://github.com/almedinhodzic/objectid-compare/blob/main/README.md",
   "scripts": {
     "lint": "eslint .",
     "test": "mocha tests --recursive"
