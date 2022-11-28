@@ -28,6 +28,16 @@ Add `objectid-compare` to the plugins section of your `.eslintrc` configuration 
 }
 ```
 
+Also this plugin required parser options, so please add in your `.eslintrc` configuration file:
+
+```json
+{
+    "parserOptions": {
+        "project": ["path/to/your/tsconfig/file"]
+    },
+}
+```
+
 
 Then configure the rules you want to use under the rules section.
 
@@ -35,6 +45,16 @@ Then configure the rules you want to use under the rules section.
 {
     "rules": {
         "objectid-compare/rule-name": "warn"
+    }
+}
+```
+
+For currently supported rule:
+
+```json
+{
+    "rules": {
+        "objectid-compare/objectid-compare": "warn"
     }
 }
 ```
