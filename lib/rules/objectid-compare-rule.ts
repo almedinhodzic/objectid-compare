@@ -5,13 +5,12 @@ const createRule = ESLintUtils.RuleCreator(
   (name) => `https://github.com/almedinhodzic/${name}`
 );
 
-function isObjectId(checker: ts.TypeChecker,nodeType: ts.Type):boolean {
-  return checker.typeToString(nodeType).search("ObjectId") !== -1;
-}
-
 function AreNodesObjectId(checker: ts.TypeChecker, nodeTypeLeft: ts.Type, 
   nodeTypeRight: ts.Type): boolean {
-    return isObjectId(checker, nodeTypeLeft) && isObjectId(checker, nodeTypeRight);
+    return (
+      checker.typeToString(nodeTypeLeft).search("ObjectId") !== -1 &&
+      checker.typeToString(nodeTypeRight).search("ObjectId") !== -1
+    );
 }
 
 const rule = createRule({
