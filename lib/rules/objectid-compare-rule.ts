@@ -5,12 +5,14 @@ const createRule = ESLintUtils.RuleCreator(
   (name) => `https://github.com/almedinhodzic/${name}`
 );
 
-function AreNodesObjectId(checker: ts.TypeChecker, nodeTypeLeft: ts.Type, 
-  nodeTypeRight: ts.Type): boolean {
-    return (
-      checker.typeToString(nodeTypeLeft).search("ObjectId") !== -1 &&
-      checker.typeToString(nodeTypeRight).search("ObjectId") !== -1
-    );
+function AreNodesObjectId(
+  checker: ts.TypeChecker,
+  nodeTypeLeft: ts.Type,
+  nodeTypeRight: ts.Type
+): boolean {
+  let arrLeftNode = checker.typeToString(nodeTypeLeft).split(" ");
+  let arrRightNode = checker.typeToString(nodeTypeRight).split(" ");
+  return arrLeftNode.includes("ObjectId") && arrRightNode.includes("ObjectId");
 }
 
 const rule = createRule({
@@ -54,7 +56,7 @@ const rule = createRule({
             },
           });
         }
-      }
+      },
     };
   },
   meta: {
@@ -68,7 +70,7 @@ const rule = createRule({
     },
     type: "suggestion",
     schema: [],
-    fixable: "code"
+    fixable: "code",
   },
   name: "objectid-compare",
   defaultOptions: [],
