@@ -1,5 +1,6 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 import * as ts from "typescript";
+import * as tsutils from "tsutils";
 
 const createRule = ESLintUtils.RuleCreator(
   (name) => `https://github.com/almedinhodzic/${name}`
@@ -10,9 +11,31 @@ function AreNodesObjectId(
   nodeTypeLeft: ts.Type,
   nodeTypeRight: ts.Type
 ): boolean {
-  let arrLeftNode = checker.typeToString(nodeTypeLeft).split(" ");
-  let arrRightNode = checker.typeToString(nodeTypeRight).split(" ");
-  return arrLeftNode.includes("ObjectId") && arrRightNode.includes("ObjectId");
+  return (
+    isObjectId(checker, nodeTypeLeft) && isObjectId(checker, nodeTypeRight)
+  );
+}
+
+function isObjectId(checker: ts.TypeChecker, nodeType: ts.Type) {
+  for (const ty of tsutils.unionTypeParts(checker.getApparentType(nodeType))) {
+    if (checker.typeToString(ty) === "ObjectId") {
+      return true;
+    }
+  }
+  return false;
+}
+
+function hasEqualsMethod(checker: ts.TypeChecker, nodeType: ts.Type) {
+  for (const ty of tsutils.unionTypeParts(checker.getApparentType(nodeType))) {
+    // Because type can be union type, and if it is ObjectId and string, we should not
+    // put equals method to this variable, because only objects has equals
+    // So for that reason, if is undefined for one type in union ( if it is union )
+    // Equals can not be used at all
+    if (ty.getProperty("equals") === undefined) {
+      return false;
+    }
+  }
+  return true;
 }
 
 const rule = createRule({
@@ -51,7 +74,9 @@ const rule = createRule({
             fix: (fixer) => {
               return fixer.replaceText(
                 node,
-                `${nodeNameLeft}.equals(${nodeNameRight})`
+                hasEqualsMethod(checker, nodeTypeLeft)
+                  ? `${nodeNameLeft}.equals(${nodeNameRight})`
+                  : `${nodeNameRight}.equals(${nodeNameLeft})`
               );
             },
           });
